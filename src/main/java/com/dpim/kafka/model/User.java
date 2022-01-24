@@ -1,6 +1,9 @@
 package com.dpim.kafka.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author cxw
@@ -9,13 +12,24 @@ import lombok.Data;
 @Data
 public class User {
 
-    /** 用户名 */
-    private  String username;
+    /** 主键 */
+    private String id;
 
-    /** 用户id */
-    private String userid;
+    /** 名称 */
+    private String name;
 
-    /** 用户状态 */
-    private String state;
+    /** 电话 */
+    private String phone;
+
+    /** 地址 */
+    private String address;
+
+    /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date createTime;
+
+    /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date updateTime;
 
 }

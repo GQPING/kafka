@@ -1,7 +1,125 @@
-<!--<?xml version="1.0" encoding="UTF-8" ?>-->
-<!--<!DOCTYPE mapper-->
-<!--        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
-<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-<!--<mapper namespace="com.ruoyi.dpim.mapper.DeviceMapper">-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dpim.kafka.mapper.UserMapper">
 
-<!--</mapper>-->
+    <!-- 添加用户 -->
+    <insert id="insert" parameterType="com.dpim.kafka.model.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="address != null">address,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="address != null">#{address},</if>
+            sysdate(),
+            sysdate()
+        </trim>
+    </insert>
+
+    <!-- 批量添加 -->
+    <insert id="insertBatch" parameterType="List">
+        insert into user
+        (id,name,phone,address,create_time,update_time)
+        values
+        <foreach collection="users" item="item" separator=",">
+            (#{item.id},
+             #{item.name},
+             #{item.phone},
+             #{item.address},
+             sysdate(),
+             sysdate())
+        </foreach>
+    </insert>
+
+    <!-- 删除用户 -->
+    <delete id="delete" parameterType="String">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
+    <!-- 批量删除 -->
+    <delete id="deleteBatch" parameterType="String">
+        delete
+        from user
+        where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 修改用户 -->
+    <update id="update" parameterType="com.dpim.kafka.model.User">
+        update user
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="address != null">address = #{address},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="map">
+        update user
+        <set>
+            <if test="user.name != null">name = #{user.name},</if>
+            <if test="user.phone != null">phone = #{user.phone},</if>
+            <if test="user.address != null">address = #{user.address},</if>
+            update_time = sysdate()
+        </set>
+        where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 查询用户详情 -->
+    <select id="select" resultType="com.dpim.kafka.model.User">
+        select id,
+               name,
+               phone,
+               address,
+               create_time as createTime,
+               update_time as updateTime
+        from user
+        where id = #{id}
+    </select>
+
+    <!-- 批量查询用户 -->
+    <select id="selectBatch" resultType="com.dpim.kafka.model.User">
+        select id,
+               name,
+               phone,
+               address,
+               create_time as createTime,
+               update_time as updateTime
+        from user
+        where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 查询用户列表 -->
+    <select id="selectList" resultType="com.dpim.kafka.model.User">
+        select id,
+               name,
+               phone,
+               address,
+               create_time as createTime,
+               update_time as updateTime
+        from user
+    </select>
+
+</mapper>

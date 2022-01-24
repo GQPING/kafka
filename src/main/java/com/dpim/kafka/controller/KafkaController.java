@@ -1,9 +1,11 @@
 package com.dpim.kafka.controller;
 
 import com.dpim.kafka.component.Sender;
+import com.dpim.kafka.utils.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,10 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping("kafka")
-public class KafkaController {
+public class KafkaController extends BaseController {
+
+    @Value("${spring.kafka.topic.test_group1}")
+    private static String topic;
 
       /** 第2种：测试GET请求，模拟数据 */
 
@@ -50,7 +55,8 @@ public class KafkaController {
 
     @RequestMapping(value = "/sender.action", method = RequestMethod.POST)
     public void exec(HttpServletRequest request, HttpServletResponse response, String data) throws IOException {
-        this.sender.send("kafka-test-topic",data);
+        sender.send(topic,data);
+        log.info("消息已生产：topic为[{}]-data为[{}]", topic, data);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/json");
         response.getWriter().write("success");

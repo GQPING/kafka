@@ -15,16 +15,16 @@ import java.util.concurrent.CountDownLatch;
 @Component
 public class Receiver {
 
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    public CountDownLatch getLatch() {
-        return latch;
-    }
-
-    @KafkaListener(topics = "${spring.kafka.topic.test_group1}")
-    public void receive(String payload) {
-        log.info("received payload='{}'",payload);
-        latch.countDown();
-    }
+//    private CountDownLatch latch = new CountDownLatch(1);
+//
+//    public CountDownLatch getLatch() {
+//        return latch;
+//    }
+//
+//    @KafkaListener(topics = "${spring.kafka.topic.test_group1}")
+//    public void receive(String payload) {
+//        log.info("received payload='{}'",payload);
+//        latch.countDown();
+//    }
 
 }
