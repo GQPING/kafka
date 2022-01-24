@@ -52,7 +52,6 @@ public class UserController extends BaseController {
      * @date 2022/1/24
      */
     private AjaxResult insertObj(String jsonString){
-        log.info("返回数据：result为[{}]",jsonString);
         JSONObject obj = JSONObject.parseObject(jsonString);
         String id = IdUtils.fastSimpleUUID();
         String name = obj.getString("name");
