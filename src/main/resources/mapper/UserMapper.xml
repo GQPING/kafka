@@ -12,8 +12,8 @@
             <if test="name != null">name,</if>
             <if test="phone != null">phone,</if>
             <if test="address != null">address,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateTime != null">update_time,</if>
+            create_time,
+            update_time
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
@@ -27,8 +27,7 @@
 
     <!-- 批量添加 -->
     <insert id="insertBatch" parameterType="List">
-        insert into user
-        (id,name,phone,address,create_time,update_time)
+        insert into user (id,name,phone,address,create_time,update_time)
         values
         <foreach collection="users" item="item" separator=",">
             (#{item.id},

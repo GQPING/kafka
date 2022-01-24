@@ -24,12 +24,10 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping("kafka")
-@PropertySource("classpath:application-dev.yml")
 public class KafkaController extends BaseController {
 
       /** 测试主题 */
-      @Value("${spring.kafka.topic.test_group1}")
-      private static String topic;
+      private static String topic = "kafka-test-topic";
 
       /** 第2种：测试GET请求，模拟数据 */
 

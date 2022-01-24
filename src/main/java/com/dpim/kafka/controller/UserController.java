@@ -3,6 +3,7 @@ package com.dpim.kafka.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dpim.kafka.model.User;
 import com.dpim.kafka.service.UserService;
+import com.dpim.kafka.utils.StringUtils;
 import com.dpim.kafka.utils.controller.BaseController;
 import com.dpim.kafka.utils.domain.AjaxResult;
 import com.dpim.kafka.utils.uuid.IdUtils;
@@ -33,10 +34,9 @@ public class UserController extends BaseController {
         String key = consumer.key();
         Object value = consumer.value();
         String topic = consumer.topic();
-        Optional kafkaMsg = Optional.ofNullable(value);
-        if (kafkaMsg.isPresent()) {
+        if (StringUtils.isNotNull(value)) {
             log.info("消息已消费：topic为[{}]-key为[{}]-value为[{}]", topic, key, value);
-            return insertObj(String.valueOf(kafkaMsg.get()));
+            return insertObj(String.valueOf(value));
         } else {
             log.info("消息未消费：topic为[{}]-key为[{}]-value为[{}]", topic, key, null);
             return AjaxResult.error();

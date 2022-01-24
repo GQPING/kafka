@@ -25,9 +25,9 @@ spring:
   kafka:
     # 代理地址：服务器+端口，可以多个用,隔开
     # 本地测试
-    bootstrap-servers: 127.0.0.1:9092
+    # bootstrap-servers: 127.0.0.1:9092
     # 外网测试
-    # bootstrap-servers: 39.99.194.125:29092
+    bootstrap-servers: 39.99.194.125:29092
     # 安全认证
     #properties:
     #sasl.mechanism: PLAIN
