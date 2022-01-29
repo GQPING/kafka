@@ -29,40 +29,17 @@ public class UserController extends BaseController {
     private UserService userService;
 
     /** 模拟接收数据，插入数据库 */
-    @KafkaListener(topics = "${spring.kafka.topic.test_group1}")
-    public AjaxResult receive(ConsumerRecord<String, Object> consumer) {
-        String key = consumer.key();
-        Object value = consumer.value();
-        String topic = consumer.topic();
-        if (StringUtils.isNotNull(value)) {
-            log.info("消息已消费：topic为[{}]-key为[{}]-value为[{}]", topic, key, value);
-            return insertObj(String.valueOf(value));
-        } else {
-            log.info("消息未消费：topic为[{}]-key为[{}]-value为[{}]", topic, key, null);
-            return AjaxResult.error();
-        }
-    }
-
-    /**
-     * 插入对象
-     *
-     * @param jsonString json字符串
-     * @return void
-     * @author cxw
-     * @date 2022/1/24
-     */
-    private AjaxResult insertObj(String jsonString){
-        JSONObject obj = JSONObject.parseObject(jsonString);
-        String id = IdUtils.fastSimpleUUID();
-        String name = obj.getString("name");
-        String phone = obj.getString("phone");
-        String address = obj.getString("address");
-        //声明创建用户对象
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setPhone(phone);
-        user.setAddress(address);
-        return toAjax(userService.insert(user));
-    }
+//    @KafkaListener(topics = "${spring.kafka.topic.test_group1}")
+//    public AjaxResult receive(ConsumerRecord<String, Object> consumer) {
+//        String key = consumer.key();
+//        Object value = consumer.value();
+//        String topic = consumer.topic();
+//        if (StringUtils.isNotNull(value)) {
+//            log.info("消息已消费：topic为[{}]-key为[{}]-value为[{}]", topic, key, value);
+//            return toAjax(userService.insertByMsg(value));
+//        } else {
+//            log.info("消息未消费：topic为[{}]-key为[{}]-value为[{}]", topic, key, null);
+//            return AjaxResult.error();
+//        }
+//    }
 }

@@ -27,4 +27,14 @@ public interface UserService {
      * @date 2022/1/24
      */
     int insertBatch(List<User> users);
+
+    /**
+     * 插入kafka消息到库
+     *
+     * @param kafkaMsg 消费的消息
+     * @return int
+     * @author cxw
+     * @date 2022/1/29
+     */
+    int insertByMsg(Object kafkaMsg);
 }
