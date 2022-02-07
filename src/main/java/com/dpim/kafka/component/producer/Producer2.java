@@ -22,8 +22,12 @@ public class Producer2 {
     @Autowired
     private KafkaTemplate kafkaTemplate;
 
-    //    @Autowired
-    //    private KafkaTemplate<String, Object> kafkaTemplate;
+//    @Autowired
+//    private KafkaTemplate<String, Object> kafkaTemplate;
+//
+//    public Producer1(KafkaTemplate<String, String> kafkaTemplate) {
+//        this.kafkaTemplate = kafkaTemplate;
+//    }
 
     /**
      * 并发执行计数器

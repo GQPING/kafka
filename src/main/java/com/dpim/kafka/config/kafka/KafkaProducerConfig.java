@@ -40,6 +40,10 @@ public class KafkaProducerConfig {
 //    @Value("${spring.kafka.producer.buffer-memory}")
 //    private Integer bufferMemory;
 
+    /**
+     * 生产者配置
+     * @return
+     */
     @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -67,22 +71,40 @@ public class KafkaProducerConfig {
 //        props.put(ProducerConfig.LINGER_MS_CONFIG, 10485760);
 //        //设置broker响应时间，如果broker在60秒之内还是没有返回给producer确认消息，则认为发送失败
 //        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 60000);
+//        //指定拦截器(value为对应的class)
+//        props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, "com.dpim.kafka.interceptor.KafkaProducerInterceptor");
 //        //设置压缩算法(默认是木有压缩算法的)
 //        props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");//snappy
-
-        //指定拦截器(value为对应的class)
-        //props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, "com.te.handler.KafkaProducerInterceptor");
 
         return props;
     }
 
+    /**
+     * 生产者工厂
+     * @return
+     */
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
+    /**
+     * 模板发送消息
+     * @return
+     */
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<String, String>(producerFactory());
+    }
+
+    /**
+     * 此模板已经设置了topic的名称，使用的时候可以直接注入此bean然后调用setDefaultTopic方法
+     * @return
+     */
+    @Bean("defaultKafkaTemplate")
+    public KafkaTemplate<Integer, String> defaultKafkaTemplate() {
+        KafkaTemplate template = new KafkaTemplate<String, String>(producerFactory());
+        template.setDefaultTopic("kafka-test-topic");
+        return template;
     }
 }

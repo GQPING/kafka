@@ -41,6 +41,17 @@ public class KafkaConsumerConfig {
 //    @Value("${spring.kafka.consumer.max-poll-records}")
 //    private Integer maxPollRecords;
 
+//    @Value("${kafka.consumer.session.timeout}")
+//    private String sessionTimeout;
+//
+//    @Value("${kafka.consumer.auto.commit.interval}")
+//    private String autoCommitInterval;
+
+    /**
+     * 消费者配置
+     * @return
+     */
+    @Bean
     public Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>();
         //配置Kafka实例的连接地址
@@ -63,11 +74,19 @@ public class KafkaConsumerConfig {
         return props;
     }
 
+    /**
+     * 消费者工厂
+     * @return
+     */
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
 
+    /**
+     * 监听容器工厂
+     * @return
+     */
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         //并发批量消费者监听工厂
@@ -75,10 +94,24 @@ public class KafkaConsumerConfig {
         //配置消费者工厂
         factory.setConsumerFactory(consumerFactory());
 
-        //批量消费，每个批次数量在Kafka配置参数中设置ConsumerConfig.MAX_POLL_RECORDS_CONFIG
+        //批量消费
+        //每个批次数量在Kafka配置参数中设置ConsumerConfig.MAX_POLL_RECORDS_CONFIG
         //factory.setBatchListener(true);
-        //listner负责ack，每调用一次，就立即commit
+
+        //容器线程数
+        //小于或等于Topic的分区数
+        //factory.setConcurrency(5);
+
+        //设置提交偏移量的方式
+        //MANUAL ： listener负责ack，但是背后也是批量上去
+        //MANUAL_IMMEDIATE ： listner负责ack，每调用一次，就立即commit
         //factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
+
+        //禁止自动启动
+        //factory.setAutoStartup(false);
+
+        //设置消费者拉取消息超时时间
+        //factory.getContainerProperties().setPollTimeout(3000);
 
         return factory;
     }
