@@ -14,19 +14,19 @@ import org.springframework.scheduling.annotation.Scheduled;
  * @author cxw
  * @date 2022/1/29
  */
-@Slf4j
-@Configuration
-@EnableScheduling
+//@Slf4j
+//@Configuration
+//@EnableScheduling
 public class RyTask {
 
-    @Autowired
-    private Producer1 producer1;
-
-    @Autowired
-    private Producer2 producer2;
-
-    @Autowired
-    private Producer3 producer3;
+//    @Autowired
+//    private Producer1 producer1;
+//
+//    @Autowired
+//    private Producer2 producer2;
+//
+//    @Autowired
+//    private Producer3 producer3;
 
     /** 生产到指定主题 */
     private static final String TOPIC = "kafka-test-topic";

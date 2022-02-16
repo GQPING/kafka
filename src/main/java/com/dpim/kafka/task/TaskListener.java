@@ -20,13 +20,13 @@ import java.util.List;
  * @author cxw
  * @date 2022/1/29
  */
-@Slf4j
-@Component
-@EnableScheduling
+//@Slf4j
+//@Component
+//@EnableScheduling
 public class TaskListener {
 
-    @Autowired
-    private KafkaListenerEndpointRegistry registry;
+//    @Autowired
+//    private KafkaListenerEndpointRegistry registry;
 
     /**
      * 批量消费消息

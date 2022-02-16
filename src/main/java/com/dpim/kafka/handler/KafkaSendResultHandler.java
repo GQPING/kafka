@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * @author cxw
  * @date 2022/1/29
  */
-@Slf4j
-@Service
+//@Slf4j
+//@Service
 public class KafkaSendResultHandler implements ProducerListener {
 //    @Override
 //    public void onSuccess(String topic, Integer partition, Object key, Object value, RecordMetadata recordMetadata) {

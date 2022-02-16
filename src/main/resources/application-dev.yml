@@ -25,14 +25,20 @@ spring:
   kafka:
     # 代理地址：服务器+端口，可以多个用,隔开
     # 本地测试
-    # bootstrap-servers: 127.0.0.1:9092
+    #bootstrap-servers: 127.0.0.1:9092
     # 外网测试
-    # bootstrap-servers: 39.99.194.125:29092
-    # 外网测试
-    bootstrap-servers: 101.43.175.187:9092
+    bootstrap-servers: 39.99.194.125:29092
     # 指定消息体 topic
     topic:
       test_group1: kafka-test-topic
+    # 安全认证
+    properties:
+      security:
+        protocol: SASL_PLAINTEXT
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="usertest" password="hntl@2021";
     # 生产者
     producer:
       # acks=0 ： 生产者在发送消息后立即返回，不等待服务器的响应结果。(完全不关心消息是否发送成功，允许消息丢失)
@@ -48,11 +54,6 @@ spring:
       # 指定消息key和消息体的序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    #      # 安全认证
-    #      properties:
-    #        sasl.mechanism: PLAIN
-    #        security.protocol: SASL_PLAINTEXT
-    #        sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="usertest" password="hntl@2021";
     # 消费者
     consumer:
       # 默认消费者组
@@ -70,24 +71,11 @@ spring:
       # 指定消息key和消息体的反序列化方式
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      #      # 安全认证
-      #      properties:
-      #        sasl.mechanism: PLAIN
-      #        security.protocol: SASL_PLAINTEXT
-      #        sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="usertest" password="hntl@2021";
-    # 安全认证
-    properties:
-      sasl:
-        mechanism: PLAIN
-        jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="usertest" password="hntl@2021";
-      security:
-        protocol: SASL_PLAINTEXT
-    # 监听器
-    listener:
-      # 运行的线程数
-      concurrency: 5
-      # 当 auto.commit.enable 设置为false时，表示kafak的offset由customer手动维护，spring-kafka提供了通过ackMode的值表示不同的手动提交方式；
-      # ack模式，每调用一次，就立即commit
-      ack-mode: manual_immediate
-      missing-topics-fatal: false
+     # 监听器
+#    listener:
+#      # 运行的线程数,小于或等于Topic的分区数
+#      concurrency: 5
+#      # 当 auto.commit.enable 设置为false时，表示kafak的offset由customer手动维护，spring-kafka提供了通过ackMode的值表示不同的手动提交方式；
+#      # ack模式，每调用一次，就立即commit
+#      ack-mode: manual_immediate
+#      missing-topics-fatal: false

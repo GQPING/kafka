@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author cxw
  */
 @MapperScan("com.dpim.kafka.mapper.**")
-@ComponentScan({"com.dpim.kafka.**"})
+//@ComponentScan({"com.dpim.kafka.**"})
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class KafkaApplication {
     public static void main(String[] args) {

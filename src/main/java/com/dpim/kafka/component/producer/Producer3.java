@@ -13,56 +13,56 @@ import java.util.concurrent.CountDownLatch;
  * @author cxw
  * @date 2022/1/26
  */
-@Slf4j
-@Component
+//@Slf4j
+//@Component
 public class Producer3 {
-    /**
-     * 生产者消息模板
-     */
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
-
+//    /**
+//     * 生产者消息模板
+//     */
 //    @Autowired
-//    private KafkaTemplate<String, Object> kafkaTemplate;
+//    private KafkaTemplate kafkaTemplate;
 //
-//    public Producer1(KafkaTemplate<String, String> kafkaTemplate) {
-//        this.kafkaTemplate = kafkaTemplate;
+////    @Autowired
+////    private KafkaTemplate<String, Object> kafkaTemplate;
+////
+////    public Producer1(KafkaTemplate<String, String> kafkaTemplate) {
+////        this.kafkaTemplate = kafkaTemplate;
+////    }
+//
+//    /**
+//     * 并发执行计数器
+//     */
+//    private CountDownLatch latch = new CountDownLatch(1);
+//
+//    /**
+//     * 定时发送消息到指定主题
+//     *
+//     * @param topic 消息主题
+//     * @return void
+//     * @author cxw
+//     * @date 2022/1/29
+//     */
+//    public void sendMsg(String topic) {
+//        User user = new User();
+//        user.setName("producer3_" + latch.getCount());
+//        user.setPhone("15690846023");
+//        user.setAddress("河南省驻马店市");
+//        String jsonString = JSONObject.toJSONString(user);
+//        kafkaTemplate.send(topic, jsonString);
+//        //log.info("Producer3 已生产消息：topic为[{}]-data为[{}]", topic, jsonString);
 //    }
-
-    /**
-     * 并发执行计数器
-     */
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    /**
-     * 定时发送消息到指定主题
-     *
-     * @param topic 消息主题
-     * @return void
-     * @author cxw
-     * @date 2022/1/29
-     */
-    public void sendMsg(String topic) {
-        User user = new User();
-        user.setName("producer3_" + latch.getCount());
-        user.setPhone("15690846023");
-        user.setAddress("河南省驻马店市");
-        String jsonString = JSONObject.toJSONString(user);
-        kafkaTemplate.send(topic, jsonString);
-        log.info("Producer3 已生产消息：topic为[{}]-data为[{}]", topic, jsonString);
-    }
-
-    /**
-     * 请求发送消息到指定主题
-     *
-     * @param topic 消息主题
-     * @param msg   消息内容
-     * @return void
-     * @author cxw
-     * @date 2022/1/29
-     */
-    public void sendMsg(String topic, String msg) {
-        kafkaTemplate.send(topic, msg);
-        log.info("Producer3 已生产消息：topic为[{}]-data为[{}]", topic, msg);
-    }
+//
+//    /**
+//     * 请求发送消息到指定主题
+//     *
+//     * @param topic 消息主题
+//     * @param msg   消息内容
+//     * @return void
+//     * @author cxw
+//     * @date 2022/1/29
+//     */
+//    public void sendMsg(String topic, String msg) {
+//        kafkaTemplate.send(topic, msg);
+//        //log.info("Producer3 已生产消息：topic为[{}]-data为[{}]", topic, msg);
+//    }
 }
