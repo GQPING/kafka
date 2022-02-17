@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 //@Slf4j
 //@Configuration
 //@EnableScheduling
-public class RyTask {
+public class ConsumerTask {
 
 //    @Autowired
 //    private Producer1 producer1;
