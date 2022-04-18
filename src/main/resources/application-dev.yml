@@ -78,4 +78,5 @@ spring:
 #      # 当 auto.commit.enable 设置为false时，表示kafak的offset由customer手动维护，spring-kafka提供了通过ackMode的值表示不同的手动提交方式；
 #      # ack模式，每调用一次，就立即commit
 #      ack-mode: manual_immediate
+       # keep silent when no topic
 #      missing-topics-fatal: false
